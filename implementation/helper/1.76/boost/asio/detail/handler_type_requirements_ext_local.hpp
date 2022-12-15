@@ -66,7 +66,7 @@ template <typename Handler>
 auto zero_arg_copyable_handler_test(Handler h, void*)
   -> decltype(
     sizeof(Handler(static_cast<const Handler&>(h))),
-    ((h)()),
+    (BOOST_ASIO_MOVE_OR_LVALUE(Handler)(h)()),
     char(0));
 
 template <typename Handler>
@@ -76,7 +76,7 @@ template <typename Handler, typename Arg1>
 auto one_arg_handler_test(Handler h, Arg1* a1)
   -> decltype(
     sizeof(Handler(BOOST_ASIO_MOVE_CAST(Handler)(h))),
-    ((h)(*a1)),
+    (BOOST_ASIO_MOVE_OR_LVALUE(Handler)(h)(*a1)),
     char(0));
 
 template <typename Handler>
@@ -86,7 +86,7 @@ template <typename Handler, typename Arg1, typename Arg2>
 auto two_arg_handler_test(Handler h, Arg1* a1, Arg2* a2)
   -> decltype(
     sizeof(Handler(BOOST_ASIO_MOVE_CAST(Handler)(h))),
-    ((h)(*a1, *a2)),
+    (BOOST_ASIO_MOVE_OR_LVALUE(Handler)(h)(*a1, *a2)),
     char(0));
 
 template <typename Handler>
@@ -96,7 +96,8 @@ template <typename Handler, typename Arg1, typename Arg2>
 auto two_arg_move_handler_test(Handler h, Arg1* a1, Arg2* a2)
   -> decltype(
     sizeof(Handler(BOOST_ASIO_MOVE_CAST(Handler)(h))),
-    ((h)(*a1, BOOST_ASIO_MOVE_CAST(Arg2)(*a2))),
+    (BOOST_ASIO_MOVE_OR_LVALUE(Handler)(h)(
+      *a1, BOOST_ASIO_MOVE_CAST(Arg2)(*a2))),
     char(0));
 
 template <typename Handler>
@@ -106,7 +107,7 @@ template <typename Handler, typename Arg1, typename Arg2, typename Arg3, typenam
 auto four_arg_handler_test(Handler h, Arg1* a1, Arg2* a2, Arg3* a3, Arg4* a4)
   -> decltype(
     sizeof(Handler(BOOST_ASIO_MOVE_CAST(Handler)(h))),
-    ((h)(*a1, *a2, *a3, *a4)),
+    (BOOST_ASIO_MOVE_OR_LVALUE(Handler)(h)(*a1, *a2, *a3, *a4)),
     char(0));
 
 template <typename Handler>
@@ -116,7 +117,7 @@ template <typename Handler, typename Arg1, typename Arg2,  typename Arg3, typena
 auto four_arg_move_handler_test(Handler h, Arg1* a1, Arg2* a2, Arg3* a3, Arg4* a4)
   -> decltype(
     sizeof(Handler(BOOST_ASIO_MOVE_CAST(Handler)(h))),
-    ((h)(*a1, BOOST_ASIO_MOVE_CAST(Arg2)(*a2), BOOST_ASIO_MOVE_CAST(Arg3)(*a3), BOOST_ASIO_MOVE_CAST(Arg4)(*a4))),
+    (BOOST_ASIO_MOVE_OR_LVALUE(Handler)(h)(*a1, BOOST_ASIO_MOVE_CAST(Arg2)(*a2), BOOST_ASIO_MOVE_CAST(Arg3)(*a3), BOOST_ASIO_MOVE_CAST(Arg4)(*a4))),
     char(0));
 
 template <typename Handler>

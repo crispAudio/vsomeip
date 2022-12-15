@@ -164,7 +164,7 @@ else()
 endif()
 
 message( STATUS "Using boost version: ${VSOMEIP_BOOST_VERSION}" )
-if (${VSOMEIP_BOOST_VERSION} GREATER 107600)
+if (${VSOMEIP_BOOST_VERSION} GREATER 107900)
 message( ERROR "boost version ${VSOMEIP_BOOST_VERSION} is not (yet) supported. Latest supported version is 1.76.0" )
 elseif(${VSOMEIP_BOOST_VERSION} GREATER 107500)
 set(VSOMEIP_BOOST_HELPER implementation/helper/1.76)
